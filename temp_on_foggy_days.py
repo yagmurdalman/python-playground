@@ -24,10 +24,10 @@ def max_temp_aggregate_by_fog(weather_underground):
     weather_data = pandas.read_csv(weather_underground)
 
     q = """
-    SELECT fog, MAX(maxtempi) max_temp
+    SELECT fog, MAX(cast (maxtempi as integer)) max_temp
     FROM weather_data
-    GROUP BY fog
-    """
+    WHERE fog = 1
+       """
 
     # Execute your SQL command against the pandas frame
     foggy_days = pandasql.sqldf(q.lower(), locals())
